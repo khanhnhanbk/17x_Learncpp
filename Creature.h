@@ -18,6 +18,7 @@ public:
     string getName() const;
     int getHealth() const;
     int getGold() const;
+    char getSymbol() const;
 
     void reduceHealth(int HP);
     bool isDead();
@@ -53,4 +54,8 @@ int Creature::getHealth() const
 int Creature::getGold() const
 {
     return m_gold;
+}
+char Creature::getSymbol() const
+{
+    return m_symbol;
 }
