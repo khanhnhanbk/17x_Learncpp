@@ -1,7 +1,7 @@
 #pragma once
 #include "Creature.h"
 #include <array>
-class Monter : public Creature
+class Monster : public Creature
 {
 public:
     enum class Type
@@ -24,14 +24,14 @@ protected:
     }
 
 public:
-    Monter(Type type);
-    ~Monter();
+    Monster(Type type);
+    ~Monster();
 };
 
-Monter::Monter(Type type) : Creature(getDefaultCreature(type))
+Monster::Monster(Type type) : Creature(getDefaultCreature(type))
 {
 }
 
-Monter::~Monter()
+Monster::~Monster()
 {
 }

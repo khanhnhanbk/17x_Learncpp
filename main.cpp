@@ -2,11 +2,11 @@
 #include <string>
 #include "Creature.h"
 #include "Player.h"
-#include "Monter.h"
+#include "Monster.h"
 using namespace std;
 int main()
 {
-    Monter m{Monter::Type::orc};
+    Monster m{Monster::Type::orc};
     std::cout << "A " << m.getName() << " (" << m.getSymbol() << ") was created.\n";
 
     return 0;
