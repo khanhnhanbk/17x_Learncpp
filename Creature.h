@@ -22,8 +22,10 @@ public:
     int getDame() const;
 
     void reduceHealth(int HP);
+    void recoverHealth(int HP);
     bool isDead();
     void addGold(int gold);
+    void useGold(int gold);
 };
 
 Creature::Creature(string name, char symbol, int health, int damActtack, int gold) : m_name{name}, m_symbol{symbol}, m_health{health}, m_damAttack{damActtack}, m_gold{gold}
@@ -32,9 +34,15 @@ Creature::Creature(string name, char symbol, int health, int damActtack, int gol
 Creature::~Creature()
 {
 }
+void Creature::recoverHealth(int HP)
+{
+    m_health += HP;
+}
 void Creature::reduceHealth(int HP)
 {
     m_health -= HP;
+    if (m_health < 0)
+        m_health = 0;
 }
 bool Creature::isDead()
 {
@@ -43,6 +51,13 @@ bool Creature::isDead()
 void Creature::addGold(int gold)
 {
     m_gold += gold;
+}
+void Creature::useGold(int gold)
+{
+    if (m_gold >= gold)
+    {
+        m_gold -= gold;
+    }
 }
 std::string Creature::getName() const
 {

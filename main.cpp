@@ -5,10 +5,33 @@
 #include "Creature.h"
 #include "Player.h"
 #include "Monster.h"
+#include "Equipment.h"
 using namespace std;
+void buyEquipment(Player &player)
+{
+    Equipment sword("Sword", 0, 3, 50);
+    Equipment bagBlood("Bag Blood", 5, 0, 70);
+
+    cout << "We has: \n"
+         << sword
+         << bagBlood
+         << "Which equipment do you want to buy? (S)word or (B)ag Blood: ";
+    char ch;
+    cin >> ch;
+    if (ch == 's')
+    {
+        player.equippedWith(sword);
+    }
+    else if (ch == 'b')
+    {
+        player.equippedWith(bagBlood);
+    }
+    cout << player;
+    return;
+}
 bool isPlayerRun()
 {
-    return rand() % 2;
+    return rand() % 3;
 }
 void attackPlayer(Player &player, Monster &monster)
 {
@@ -17,18 +40,21 @@ void attackPlayer(Player &player, Monster &monster)
     cout << player;
     if (player.isDead())
     {
-        cout << "You lost";
+        cout << "You lost\n";
+        cout << "You died at level " << player.getLevel() << " and with " << player.getGold() << " gold.";
     }
 }
 void attackMonster(Player &player, Monster &monster)
 {
     cout << "You hit the " << monster.getName() << " for " << player.getDame() << " damage.\n";
     monster.reduceHealth(player.getDame());
+    cout << monster;
     if (monster.isDead())
     {
         cout << "You killed the " << monster.getName() << '\n';
         player.addGold(monster.getGold());
         player.levelUp();
+        player.recoverHealth(1);
         cout << player;
     }
     else
@@ -65,6 +91,10 @@ void fightMonster(Player &player, Monster &monster)
             attackMonster(player, monster);
         }
     }
+    if (player.hasWon())
+    {
+        cout << "Congratulation.\n";
+    }
 }
 int main()
 {
@@ -80,8 +110,14 @@ int main()
 
     cout << "You has " << player.getHealth() << " HP, " << player.getGold() << " golds\n";
 
-    while (!player.isDead())
+    while (!player.isDead() && !player.hasWon())
     {
+        cout << "Do you buy some equipment? (y/N)";
+        char ch;
+        cin.ignore();
+        cin.get(ch);
+        if (ch == 'y')
+            buyEquipment(player);
         Monster monster{Monster::getRandomMonster()};
         fightMonster(player, monster);
     }

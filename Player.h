@@ -1,5 +1,6 @@
 #pragma once
 #include "Creature.h"
+#include "Equipment.h"
 class Player : public Creature
 {
 protected:
@@ -10,8 +11,11 @@ public:
     ~Player();
 
     int getLevel() const;
-
     void levelUp();
+
+    bool canEquipped(Equipment &equipment);
+    void equippedWith(Equipment &equipment);
+
     bool hasWon();
 };
 
@@ -47,3 +51,21 @@ std::ostream &operator<<(std::ostream &out, Player &player)
     return out;
 }
 // cout << "You level " << m_level << ", you HP " << m_health << "\n";
+bool Player::canEquipped(Equipment &equipment)
+{
+    return m_gold >= equipment.getCost();
+}
+
+void Player::equippedWith(Equipment &equipment)
+{
+    if (canEquipped(equipment))
+    {
+        m_gold -= equipment.getCost();
+        m_health += equipment.getAddHP();
+        m_damAttack += equipment.getAddDam();
+    }
+    else
+    {
+        cout << "Not gold enough. \n";
+    }
+}
