@@ -40,3 +40,10 @@ bool Player::hasWon()
 {
     return m_level >= 20;
 }
+std::ostream &operator<<(std::ostream &out, Player &player)
+{
+    out << player.getName() << " (Level " << player.getLevel() << ", HP = " << player.getHealth() << ", Gold = " << player.getGold()
+        << ", Damage= " << player.getDame() << ")\n";
+    return out;
+}
+// cout << "You level " << m_level << ", you HP " << m_health << "\n";

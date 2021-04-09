@@ -11,6 +11,7 @@ public:
         slime,
         max_types
     };
+
 protected:
     /* data */
     static const Creature &getDefaultCreature(Type type)
@@ -26,6 +27,7 @@ protected:
 public:
     Monster(Type type);
     ~Monster();
+    static Monster::Type getRandomMonster();
 };
 
 Monster::Monster(Type type) : Creature(getDefaultCreature(type))
@@ -34,4 +36,15 @@ Monster::Monster(Type type) : Creature(getDefaultCreature(type))
 
 Monster::~Monster()
 {
+}
+Monster::Type Monster::getRandomMonster()
+{
+    int randomNumber = rand() % int(Type::max_types);
+    return Monster::Type(randomNumber);
+}
+std::ostream &operator<<(std::ostream &out, Monster &monster)
+{
+    out << monster.getName() << " (HP = " << monster.getHealth() << ", Gold = " << monster.getGold()
+        << ", Damage= " << monster.getDame() << ")\n";
+    return out;
 }

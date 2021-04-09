@@ -19,6 +19,7 @@ public:
     int getHealth() const;
     int getGold() const;
     char getSymbol() const;
+    int getDame() const;
 
     void reduceHealth(int HP);
     bool isDead();
@@ -58,4 +59,8 @@ int Creature::getGold() const
 char Creature::getSymbol() const
 {
     return m_symbol;
+}
+int Creature::getDame() const
+{
+    return m_damAttack;
 }
